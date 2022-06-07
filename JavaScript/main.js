@@ -8,7 +8,8 @@ function login(){
         window.location =  "administrador.html"
     }
     else{
-        alert("Rol encontrado")
+        alert("Usuario y/o contraseña incorrectos")
+        window.location = "login.html"
     }
 
 }
