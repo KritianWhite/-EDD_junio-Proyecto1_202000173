@@ -2,7 +2,7 @@
     {
         "dpi": 3884144641825,
         "nombre_completo": "William Leon",
-        "nombre_usuaio": "Rhonda",
+        "nombre_usuario": "Rhonda",
         "correo": "rhondaleon@bitrex.com",
         "rol": "Usuario",
         "contrasenia": "veniam",
@@ -11,7 +11,7 @@
     {
         "dpi": 5158445914766,
         "nombre_completo": "Clarice Baird",
-        "nombre_usuaio": "Booker",
+        "nombre_usuario": "Booker",
         "correo": "bookerbaird@bitrex.com",
         "rol": "Administrador",
         "contrasenia": "labore",
@@ -20,7 +20,7 @@
     {
         "dpi": 4209796138857,
         "nombre_completo": "Hawkins Graves",
-        "nombre_usuaio": "Stokes",
+        "nombre_usuario": "Stokes",
         "correo": "stokesgraves@bitrex.com",
         "rol": "Usuario",
         "contrasenia": "Lorem",
@@ -29,7 +29,7 @@
     {
         "dpi": 9081494909953,
         "nombre_completo": "Althea Erickson",
-        "nombre_usuaio": "Josefa",
+        "nombre_usuario": "Josefa",
         "correo": "josefaerickson@bitrex.com",
         "rol": "Administrador",
         "contrasenia": "dolore",
