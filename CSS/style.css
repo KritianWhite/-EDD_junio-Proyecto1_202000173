@@ -1,3 +1,19 @@
+/* Estilos del home */
+
+
+
+/* Estilos del login */
+
+.divider:after, .divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}
+
+
+/* Estilos de administrador */
+
 @import url("https://fonts.googleapis.com/css?family=Montserrat");
 
 .pricing-table{
@@ -89,3 +105,33 @@
   font-weight: 600;
   padding: 9px 0; 
 }
+
+
+/* estilos para usuarios (lista usuarios) */
+#usuario
+	{
+		overflow: hidden;
+		background: url(../img/pic01.jpg) no-repeat center;
+		background-size: 100% auto;
+	}
+
+	#header
+	{
+    color: aliceblue;
+		overflow: hidden;
+		position: relative;
+		padding: 5em 0em;
+	}
+
+  .container-u
+	{
+		overflow: hidden;
+		margin: 0em auto;
+		width: 1000px;
+	}
+
+  #usuarios-circular-simple
+  {
+    width: 1500px;
+    height: 200px;
+  }

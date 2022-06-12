@@ -1,4 +1,4 @@
-import { Usuario } from './ObjetoUsuarios.js'
+import { Usuario, listaCircularSimple } from './Usuarios lista circular simple.js'
 import { listaDoble } from './listaDoble.js'
 
 import { Autores } from './autores.js'
@@ -8,6 +8,7 @@ import { ArbolABB } from './arbolBinario.js'
 
 // USUARIOS
 var listaDoblemente = new listaDoble()
+var listaCircular_Simple = new listaCircularSimple()
 var contenidoUsuariosJSON = []
 
 window.addEventListener("load", () => {
@@ -39,7 +40,7 @@ function abrirUsuariosJSON(evento) {
 function cargarUsuarios() {
     alert("Cargando archivos....!!!")
     contenidoUsuariosJSON.forEach(e => {
-        listaDoblemente.agregarAlfinal(new Usuario(
+        listaCircular_Simple.agregarAlfinal(new Usuario(
             e.dpi,
             e.nombre_completo,
             e.nombre_usuaio,
@@ -49,7 +50,8 @@ function cargarUsuarios() {
             e.telefono
         ))
     })
-    listaDoblemente.recorrerLista()
+    listaCircular_Simple.recorrerLista()
+    listaCircular_Simple.graficarDot()
 }
 
 
@@ -91,4 +93,41 @@ function cargarAutores(){
     arbolito.postOrden(arbolito.raiz)
     arbolito.postOrden(arbolito.raiz)
     arbolito.inOrden(arbolito.raiz)
+}
+
+
+// Cargar Libros
+var contenidoLibrosJSON = []
+
+window.addEventListener("load", () => {
+    document
+        .getElementById("fichero-l")
+        .addEventListener("change", abrirLibrosJSON)
+})
+window.addEventListener("load", () => {
+    document
+        .getElementById("cargar-libros")
+        .addEventListener("click", cargarLibros)
+})
+
+function abrirLibrosJSON(evento){
+    let archivo = evento.target.files[0]
+    if (archivo) {
+        let reader = new FileReader()
+        reader.onload = function (e) {
+            let contenido = e.target.result
+            contenidoLibrosJSON = JSON.parse(contenido)
+        }
+        reader.readAsText(archivo)
+    }
+    else{
+        alert("No se seleccionó ningún archivo")
+    }
+}
+
+function cargarLibros() {
+    alert("Cargando libros...!!!")
+    contenidoLibrosJSON.forEach(e => {
+        console.log(e.nombre_autor)
+    })
 }
