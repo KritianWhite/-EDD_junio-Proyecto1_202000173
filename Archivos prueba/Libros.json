@@ -24,9 +24,9 @@
         "nombre_autor" : "Williamson Lynn",
         "nombre_libro" : "Crustatia",
         "cantidad" : 5,
-        "fila" : 6,
+        "fila" : 8,
         "columna" : 2,
         "paginas" : 191,
-        "categoria" : "Fantasia"
+        "categoria" : "Thriller"
     }
 ]
