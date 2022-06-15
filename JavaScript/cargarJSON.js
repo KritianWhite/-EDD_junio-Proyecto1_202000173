@@ -116,6 +116,9 @@ function abrirAutoresJSON(evento) {
 
 function cargarAutores() {
     alert("Cargando autores....!!!")
+    let newElement = document.getElementById("autores")
+    let newText = ""
+
     contenidoAutoresJSON.forEach(e => {
         let listAutores = new Autores(
             e.dpi,
@@ -125,12 +128,37 @@ function cargarAutores() {
             e.direccion,
             e.biografia
         )
+        
+        newText += `
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="single-team">
+                            <div class="img-area">
+                                <img src="https://i.postimg.cc/wMMhrMDm/2.jpg" class="img-responsive" alt="">
+                                <div class="social">
+                                    <ul class="list-inline">
+                                        <li><a><i class="fa fa-facebook"></i></a></li>
+                                        <li><a><i class="fa fa-twitter"></i></a></li>
+                                        <li><a><i class="fa fa-pinterest"></i></a></li>
+                                        <li><a><i class="fa fa-linkedin"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="img-text">
+                                <h4>${e.nombre_autor}</h4>
+                                <h5>${e.biografia}</h5>
+                            </div>
+                        </div>
+                    </div>
+        `
+        newElement.innerHTML = newText
+
         arbolito.agregar(e.nombre_autor)
         console.log(listAutores)
     })
     arbolito.postOrden(arbolito.raiz)
     arbolito.postOrden(arbolito.raiz)
     arbolito.inOrden(arbolito.raiz)
+    arbolito.graficar(arbolito.raiz)
 }
 
 
@@ -169,9 +197,30 @@ function abrirLibrosJSON(evento) {
 
 function cargarLibros() {
     alert("Cargando libros...!!!")
+    let newElement = document.getElementById("libros-Fantasia")
+    let newText = ""
+    let newElement2 = document.getElementById("libros-Thriller")
+    let newText2 = ""
+
     contenidoLibrosJSON.forEach(e => {
         if (e.categoria === "Fantasia") {
             matriz_Ortogonal.insertData(e.fila, e.columna, e.nombre_libro)
+
+            newText += `
+                    <div class="col-md-3 col-sm-6">
+                                <div class="box">
+                                    <div class="our-team">
+                                        <div class="pic">
+                                            <img src="./img/image1.jpg">
+                                        </div>
+                                        <h3 class="title">${e.nombre_libro}</h3>
+                                        <span class="post">${e.nombre_autor}</span>
+                                        <p>Cantidad: ${e.cantidad}</p>
+                                    </div>
+                                </div>
+                            </div>
+                    `
+            newElement.innerHTML = newText
         }
         else if (e.categoria === "Thriller") {
             matriz_Dispersa.insertar(new NodoInterno(
@@ -179,10 +228,26 @@ function cargarLibros() {
                 e.columna,
                 e.nombre_libro
             ))
-        }
 
+            newText2 += `
+                    <div class="col-md-3 col-sm-6">
+                                <div class="box">
+                                    <div class="our-team">
+                                        <div class="pic">
+                                            <img src="./img/image1.jpg">
+                                        </div>
+                                        <h3 class="title">${e.nombre_libro}</h3>
+                                        <span class="post">${e.nombre_autor}</span>
+                                        <p>Cantidad: ${e.cantidad}</p>
+                                    </div>
+                                </div>
+                            </div>
+                    `
+            newElement2.innerHTML = newText2
+        }
         console.log(e.nombre_autor)
     })
+
     matriz_Ortogonal.drawMatrix()
     matriz_Dispersa.graficarDot()
 

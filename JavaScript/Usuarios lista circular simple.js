@@ -236,7 +236,7 @@ export class listaCircularSimple {
         cadena += "Node" + String(cont) + " -> " + "Node" + String(0) + ";\n"
         cadena += "}";
         console.log(cadena);
-        d3.select("#usuarios-circular-simple").graphviz().width(1350).height(500).renderDot(cadena);
+        d3.select("#usuarios-circular-simple").graphviz().width(1500).height(300).renderDot(cadena);
 
     }
 

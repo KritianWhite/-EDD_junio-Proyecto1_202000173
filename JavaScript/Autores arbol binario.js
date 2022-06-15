@@ -64,6 +64,7 @@ export class ArbolABB{
     }
 
     agregar(id, node = this.raiz){
+        id = id.replace(/ /g, "_" )
         if (!node){
             this.raiz = new Nodo(id)
             return
@@ -110,4 +111,34 @@ export class ArbolABB{
         console.log(node.id)
         this.inOrden(node.derecha)
     }
+
+    graficar(raiz) {
+        var cadena = '';
+        cadena += "digraph G { \n"
+        cadena +="rankdir=TB; \n";
+        cadena += "node [shape = record, color=black , style=filled, fillcolor=gray93];\n";
+        cadena += this.__graficadora(raiz);
+        cadena += "} \n";
+        d3.select("#arbolito").graphviz().width(1350).height(500).renderDot(cadena);
+      }
+    
+      __graficadora(root) {
+        var cadena;
+        cadena = "";
+    
+        if (root.derecha === null && root.izquierda === null) {
+          cadena = "nodo" + root.id.toString() + "[label =\" " + root.id.toString().replace(/_/g, " ") + "\"]; \n";
+        } else {
+          cadena = "nodo" + root.id.toString() + "[label =\"<C0>| " + root.id.toString().replace(/_/g, " ") + "|<C1> \"]; \n";
+        }
+    
+        if (root.izquierda !== null) {
+          cadena = cadena + this.__graficadora(root.izquierda) + "nodo" + root.id.toString() + ":C0->nodo" + root.izquierda.id.toString() + "\n";
+        }
+    
+        if (root.derecha !== null) {
+          cadena = cadena + this.__graficadora(root.derecha) + "nodo" + root.id.toString() + ":C1->nodo" + root.derecha.id.toString() + "\n";
+        }
+        return cadena
+      }
 }
