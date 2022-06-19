@@ -1,82 +1,5 @@
-export class Libros{
-    constructor(isbn, nombreAutor, nombreLibro, cantidad, fila, columna, paginas, categoria){
-        this._isbn = isbn
-        this._nombreAutor = nombreAutor
-        this._nombreLibro = nombreLibro
-        this._cantidad = cantidad
-        this._fila = fila
-        this._columna = columna
-        this._paginas = paginas
-        this._categoria = categoria
-    }
-    get isbn(){
-        return this._isbn
-    }
-    set isbn(isbn){
-        this._isbn = isbn
-    }
-    get nombreAutor(){
-        return this._nombreAutor
-    }
-    set nombreAutor(nombreAutor){
-        this._nombreAutor = nombreAutor
-    }
-    get nombreLibro(){
-        return this._nombreLibro
-    }
-    set nombreLibro(nombreLibro){
-        this._nombreLibro = nombreLibro
-    }
-    get cantidad(){
-        return this._cantidad
-    }
-    set cantidad(cantidad){
-        this._cantidad = cantidad
-    }
-    get fila(){
-        return this._fila
-    }
-    set fila(fila){
-        this._fila = fila
-    }
-    get columna(){
-        return this._columna
-    }
-    set columna(columna){
-        this._columna = columna
-    }
-    get paginas(){
-        return this._paginas
-    }
-    set paginas(paginas){
-        this._paginas = paginas
-    }
-    get categoria(){
-        return this._categoria
-    }
-    set categoria(categoria){
-        this._categoria = categoria
-    }
 
-    toString(){
-        return `
-        Nombre Libro: ${this._nombreLibro},
-        Autor: ${this._nombreAutor},
-        Categoria: ${this._categoria},
-        Páginas: ${this._paginas},
-        ISBN: ${this._isbn},
-        Cantidad: ${this._cantidad},
-        Fila: ${this._fila}, Columna: ${this._columna}
-        `
-    }
-}
-
-
-
-
-
-// MATRIZ DISPERSA
-export class NodoInterno {
+class NodoInterno_O {
 
     constructor(x = null, y = null, caracter = null) {
         this.caracter = caracter;
@@ -91,19 +14,25 @@ export class NodoInterno {
 }
 
 
-export class NodoEncabezado {
+class NodoEncabezado_O {
     constructor(id = null) {
         this.id = id;
         this.siguiente = null;
         this.anterior = null;
         this.acceso = null;
     }
+    getAcceso() {
+        return this.acceso
+    }
+    setAcceso(nuevo_acceso) {
+        this.acceso = nuevo_acceso
+    }
 
 }
 
 
 
-export class ListaEncabezado {
+class ListaEncabezado_O {
 
     constructor(tipo = null) {
         this.tipo = tipo;
@@ -177,15 +106,16 @@ export class ListaEncabezado {
         return null;
     }
 
+
 }
 
 
-export class MatrizDispersa {
+class MatrizOrtogonal {
 
     constructor(capa = null) {
         this.capa = capa;
-        this.filas = new ListaEncabezado("LISTAS");
-        this.columnas = new ListaEncabezado("COLUMNAS");
+        this.filas = new ListaEncabezado_O("LISTAS");
+        this.columnas = new ListaEncabezado_O("COLUMNAS");
 
     }
 
@@ -195,12 +125,12 @@ export class MatrizDispersa {
         encabezadoY = this.columnas.getEncabezado(nodoInterno.y);
 
         if (encabezadoX === null) {
-            encabezadoX = new NodoEncabezado(nodoInterno.x);
+            encabezadoX = new NodoEncabezado_O(nodoInterno.x);
             this.filas.insertarEncabezado(encabezadoX);
         }
 
         if (encabezadoY === null) {
-            encabezadoY = new NodoEncabezado(nodoInterno.y);
+            encabezadoY = new NodoEncabezado_O(nodoInterno.y);
             this.columnas.insertarEncabezado(encabezadoY);
         }
 
@@ -462,379 +392,68 @@ export class MatrizDispersa {
         }
         grafo += "}";
 
-        d3.select("#matriz-dispersa").graphviz()
+        d3.select("#matriz-ortogonal").graphviz()
             .width(1000)
             .height(700)
             .renderDot(grafo)
 
     }
-
-}
-
-
-
-
-
-
-// MATRIZ ORTOGONAL
-var Matriz, columna, fila;
-
-export class NodoOrtogonal {
-  constructor(fila, columna, caracter) {
-    this.fila = fila;
-    this.columna = columna;
-    this.caracter = caracter;
-    this.anterior = null;
-    this.siguiente = null;
-    this.arriba = null;
-    this.abajo = null;
-  }
-
-  getFila() {
-    return this.fila;
-  }
-
-  getColumna() {
-    return this.columna;
-  }
-
-  getCaracter() {
-    return this.caracter;
-  }
-
-  setArriba(arriba) {
-    this.arriba = arriba;
-  }
-
-  getArriba() {
-    return this.arriba;
-  }
-
-  setAbajo(abajo) {
-    this.abajo = abajo;
-  }
-
-  getAbajo() {
-    return this.abajo;
-  }
-
-  setSiguiente(siguiente) {
-    this.siguiente = siguiente;
-  }
-
-  getSiguiente() {
-    return this.siguiente;
-  }
-
-  setAnterior(anterior) {
-    this.anterior = anterior;
-  }
-
-  getAnterior() {
-    return this.anterior;
-  }
-
-}
-
-export class MatrizOrtogonal {
-  constructor() {
-    this.head = null;
-    this.size = 0;
-    this.SizeG = 0;
-  }
-
-  getHead() {
-    return this.head;
-  }
-
-  getSize() {
-    return this.size;
-  }
-
-  getSizeG() {
-    return this.SizeG;
-  }
-
-  vacio() {
-    return this.head === null;
-  }
-
-  autofilling(fila, columna, caracter) {
-    for (var i = 1, _pj_a = fila + 1; i < _pj_a; i += 1) {
-      for (var j = 1, _pj_b = columna + 1; j < _pj_b; j += 1) {
-        this.insertData(i, j, caracter);
-      }
-    }
-  }
-
-  insertData(fila, columna, caracter) {
-    var aux, aux2, new_node;
-    this.SizeG += 1;
-
-    if (this.vacio()) {
-      new_node = new NodoOrtogonal(fila, columna, caracter);
-      this.head = new_node;
-      this.size += 1;
-    } else {
-      aux = this.head;
-
-      while (aux.abajo !== null) {
-        aux = aux.abajo;
-      }
-
-      if (this.size !== fila) {
-        this.size += 1;
-        new_node = new NodoOrtogonal(fila, columna, caracter);
-        aux.abajo = new_node;
-        new_node.arriba = aux;
-      } else {
-        while (aux.siguiente !== null) {
-          aux = aux.siguiente;
+    ubicarCoordenada(fila, columna, dato_nuevo) {
+        var tmp;
+        for (let i = 1; i <= 25; i++) {
+            tmp = this.filas.getEncabezado(i).getAcceso()
+            while (tmp !== null) {
+                if (tmp.x == fila && tmp.y == columna) {
+                    tmp.caracter = dato_nuevo;
+                }
+                tmp = tmp.derecha;
+            }
         }
+        /*try {
+          tmp = this.filas.getEncabezado(fila).getAcceso();
+    
+          while (tmp !== null) {
+            console.log(tmp.x)
+            console.log(tmp.y)
+            var inicio, tmp2;
+            inicio = this.columnas.getEncabezado(columna);
 
-        new_node = new NodoOrtogonal(fila, columna, caracter);
-        aux.siguiente = new_node;
-        new_node.anterior = aux;
+            tmp2 = inicio.getAcceso();
 
-        if (this.size > 1) {
-          aux2 = aux.arriba.siguiente;
-          aux2.abajo = new_node;
-          new_node.arriba = aux2;
-        }
-      }
-    }
-  }
-
-  searchData(fila, columna) {
-    var aux, tmp;
-    tmp = aux = null;
-
-    if (this.head !== null) {
-      tmp = this.head;
-
-      while (tmp !== null) {
-        aux = tmp;
-
-        while (aux !== null) {
-          if (Number.parseInt(fila) === Number.parseInt(aux.fila) && Number.parseInt(columna) === Number.parseInt(aux.columna)) {
-            return aux.caracter;
+            while (tmp2 !== null) {
+                if (tmp.x === fila && tmp2.y === columna) {
+                    tmp.caracter = dato_nuevo;
+                  return tmp2;
+                }
+            tmp2 = tmp2.getAbajo();
+            }
+            
+    
+            tmp = tmp.derecha();
           }
-
-          aux = aux.siguiente;
-        }
-
-        tmp = tmp.abajo;
-      }
-
-      return null;
-    } else {
-      console.log("Matriz vacia");
-      return;
-    }
-  }
-
-  printMatrixO() {
-    var aux, tmp;
-    tmp = aux = null;
-
-    if (this.head !== null) {
-      tmp = this.head;
-
-      while (tmp !== null) {
-        aux = tmp;
-
-        while (aux !== null) {
-          console.log(aux.caracter + " ");
-          aux = aux.siguiente;
-        }
-
-        console.log("");
-        tmp = tmp.abajo;
-      }
-    } else {
-      return console.log("Matriz vacia");
-    }
-  }
-
-
-  drawMatrix() {
-    var aux, contenido, file, tmp;
-    tmp = null;
-    aux = null;
-
-    if (this.head !== null) {
-      contenido = "";
-      contenido += "\ndigraph html {\nabc [shape = none, margin = 0, label=<\n<TABLE BORDER = \"1\" CELLBORDER = \"1\" CELLSPACING=\"0\" CELLPADDING=\"10\">\n";
-      tmp = this.head;
-
-      while (tmp !== null) {
-        aux = tmp;
-        contenido += "<TR>";
-
-        while (aux !== null) {
-          contenido += `<TD BGCOLOR="#ffffff">${aux.caracter}</TD>`;
-          aux = aux.siguiente;
-        }
-
-        contenido += "</TR>";
-        tmp = tmp.abajo;
-      }
-
-      contenido += "</TABLE>>];\n}";
-      d3.select("#matriz-ortogonal").graphviz()
-        .width(1000)
-        .height(700)
-        .renderDot(contenido)
-
-    } else {
-      return console.log("Error al tratar de dibujar la matriz");
-    }
-  }
-
-  /*graficarDot() {
-    var aux, aux2, cont, grafo, group, rank, x_fila, y_columna;
-
-    grafo = "digraph T{ \nnode[shape=box fontname=\"Arial\" fillcolor=\"white\" style=filled ]";
-    grafo += "\nroot[label = \"capa: " + this.capa + "\", group=1]\n";
-    grafo += "label = \"Matriz Dispersa\" \nfontname=\"Arial Black\" \nfontsize=\"15pt\" \n\n\n";
-
-    x_fila = this.filas.primero;
-    while (x_fila != null) {
-        grafo += `F${x_fila.id}[label="${x_fila.id}",fillcolor="plum",group=1];\n`;
-        x_fila = x_fila.siguiente;
+    
+          return null;
+        } catch (e) {
+          console.log("Coordenada no encontrada");
+          return null;
+        }*/
     }
 
-    x_fila = this.filas.primero;
-    while (x_fila != null) {
-        if (x_fila.siguiente !== null) {
-            grafo += `F${x_fila.id}->F${x_fila.siguiente.id};\n`;
-            grafo += `F${x_fila.siguiente.id}->F${x_fila.id};\n`;
-        }
-
-        x_fila = x_fila.siguiente;
-    }
-
-    y_columna = this.columnas.primero;
-
-    while (y_columna != null) {
-        group = Number.parseInt(y_columna.id) + 1;
-        grafo += `C${y_columna.id}[label="C${y_columna.id}",fillcolor="powderblue",group=${group.toString()}];\n`;
-        y_columna = y_columna.siguiente;
-    }
-
-    cont = 0;
-    y_columna = this.columnas.primero;
-
-    while (y_columna != null) {
-        if (y_columna.siguiente !== null) {
-            grafo += `C${y_columna.id}->C${y_columna.siguiente.id}\n`;
-            grafo += `C${y_columna.siguiente.id}->C${y_columna.id}\n`;
-        }
-
-        cont += 1;
-        y_columna = y_columna.siguiente;
-    }
-
-    y_columna = this.columnas.primero;
-    x_fila = this.filas.primero;
-    grafo += `root->F${x_fila.id};\n root->C${y_columna.id};\n`;
-    grafo += "{rank=same;root;";
-    cont = 0;
-    y_columna = this.columnas.primero;
-
-    while (y_columna != null) {
-        grafo += `C${y_columna.id};`;
-        cont += 1;
-        y_columna = y_columna.siguiente;
-    }
-
-    grafo += "}\n";
-    aux = this.filas.primero;
-    aux2 = aux.acceso;
-    cont = 0;
-
-    while (aux != null) {
-        cont += 1;
-
-        while (aux2 != null) {
-            grafo += `N${aux2.x}_${aux2.y}[label="${aux2.caracter}",group="${Number.parseInt(aux2.y) + 1}", fillcolor="white"];\n`;
-            aux2 = aux2.derecha;
-        }
-
-        aux = aux.siguiente;
-
-        if (aux != null) {
-            aux2 = aux.acceso;
-        }
-    }
-
-    aux = this.filas.primero;
-    aux2 = aux.acceso;
-    cont = 0;
-
-    while (aux != null) {
-        rank = "{" + `rank = same;F${aux.id};`;
-        cont = 0;
-
-        while (aux2 != null) {
-            if (cont == 0) {
-                grafo += `F${aux.id}->N${aux2.x}_${aux2.y};\n`;
-                grafo += `N${aux2.x}_${aux2.y}->F${aux.id};\n`;
-                cont += 1;
+    llenarMatriz() {
+        for (let i = 1; i <= 25; i++) {
+            for (let j = 1; j <= 25; j++) {
+                matrizz.insertar(new NodoInterno_O(i, j, " "));
             }
-
-            if (aux2.derecha != null) {
-                grafo += `N${aux2.x}_${aux2.y}->N${aux2.derecha.x}_${aux2.derecha.y};\n`;
-                grafo += `N${aux2.derecha.x}_${aux2.derecha.y}->N${aux2.x}_${aux2.y};\n`;
-            }
-
-            rank += `N${aux2.x}_${aux2.y};`;
-            aux2 = aux2.derecha;
-        }
-
-        aux = aux.siguiente;
-
-        if (aux != null) {
-            aux2 = aux.acceso;
-        }
-
-        grafo += rank + "}\n";
-    }
-
-    aux = this.columnas.primero;
-    aux2 = aux.acceso;
-    cont = 0;
-
-    while (aux != null) {
-        cont = 0;
-        grafo += "";
-
-        while (aux2 != null) {
-            if (cont == 0) {
-                grafo += `C${aux.id}->N${aux2.x}_${aux2.y};\n`;
-                grafo += `N${aux2.x}_${aux2.y}->C${aux.id};\n`;
-                cont += 1;
-            }
-
-            if (aux2.abajo != null) {
-                grafo += `N${aux2.abajo.x}_${aux2.abajo.y}->N${aux2.x}_${aux2.y};\n`;
-                grafo += `N${aux2.x}_${aux2.y}->N${aux2.abajo.x}_${aux2.abajo.y};\n`;
-            }
-
-            aux2 = aux2.abajo;
-        }
-
-        aux = aux.siguiente;
-
-        if (aux != null) {
-            aux2 = aux.acceso;
         }
     }
-    grafo += "}";
 
-    d3.select("#lienzo").graphviz()
-        .width(1000)
-        .height(700)
-        .renderDot(grafo)*/
 
 }
+let matrizz = new MatrizOrtogonal()
+
+
+matrizz.llenarMatriz()
+matrizz.ubicarCoordenada(5, 2, "Zounds")
+matrizz.ubicarCoordenada(9, 1, "Isosure")
+matrizz.ubicarCoordenada(8, 20, "Crustatia")
+matrizz.graficarDot()

@@ -1,16 +1,19 @@
 import { Usuario, listaCircularSimple } from './Usuarios lista circular simple.js'
 import { Autores, ArbolABB } from "./Autores arbol binario.js";
-import { Libros, NodoInterno, MatrizDispersa, MatrizOrtogonal } from "./Libros matrices dispersa y ortogonal.js";
+import { Libros, NodoInterno, MatrizDispersa, MatrizOrtogonal } from "./Libros matrices dispersa.js";
+import { listaSimple } from "./Lista simple.js";
+import { Pila } from "./Pila.js";
+import { UsuariosCon_Libros, usuarioEn_Cola, listaDoble, Cola } from "./Lista doblemente enlazada.js";
+import { Lista_Listas } from "./Lista de listas.js";
 
 
-
-//alert("Hola bb")
-
+document.getElementById("apilar-libro").onclick = apilarLibro
+document.getElementById("comprar-libro").onclick = comprarLibro
 
 // USUARIOS
 var listaCircular_Simple = new listaCircularSimple()
 var contenidoUsuariosJSON = []
-
+//console.log(contenidoUsuariosJSON)
 
 window.addEventListener("load", () => {
     document
@@ -61,7 +64,7 @@ function cargarUsuarios() {
             <div class="col-md-3 col-sm-6">
                 <div class="our-team">
                     <div class="pic">
-                        <img src="./img/image${random(1,50)}.png">
+                        <img src="./img/image${random(1, 50)}.png">
                     </div>
                     <h3 class="title">${e.nombre_completo}</h3>
                     <span class="post">${e.nombre_usuario}</span>
@@ -126,14 +129,14 @@ function cargarAutores() {
             e.correo,
             e.telefono,
             e.direccion,
-            e.biografia
+            e.about
         )
-        
+
         newText += `
             <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="single-team">
                             <div class="img-area">
-                                <img src="https://i.postimg.cc/wMMhrMDm/2.jpg" class="img-responsive" alt="">
+                                <img src="./img/Autor${random(1, 50)}.jpg" class="img-responsive">
                                 <div class="social">
                                     <ul class="list-inline">
                                         <li><a><i class="fa fa-facebook"></i></a></li>
@@ -145,7 +148,7 @@ function cargarAutores() {
                             </div>
                             <div class="img-text">
                                 <h4>${e.nombre_autor}</h4>
-                                <h5>${e.biografia}</h5>
+                                <h5>${e.about}</h5>
                             </div>
                         </div>
                     </div>
@@ -163,10 +166,10 @@ function cargarAutores() {
 
 
 // Cargar Libros
-
-var autoress = new Autores()
-var matriz_Dispersa = new MatrizDispersa()
 var matriz_Ortogonal = new MatrizOrtogonal()
+var matriz_Dispersa = new MatrizDispersa()
+var Pila_1 = new Pila()
+var lista_Simple = new listaSimple()
 var contenidoLibrosJSON = []
 
 window.addEventListener("load", () => {
@@ -179,6 +182,8 @@ window.addEventListener("load", () => {
         .getElementById("cargar-libros")
         .addEventListener("click", cargarLibros)
 })
+
+
 
 function abrirLibrosJSON(evento) {
     let archivo = evento.target.files[0]
@@ -197,30 +202,43 @@ function abrirLibrosJSON(evento) {
 
 function cargarLibros() {
     alert("Cargando libros...!!!")
+    let contador = 1
+
     let newElement = document.getElementById("libros-Fantasia")
     let newText = ""
     let newElement2 = document.getElementById("libros-Thriller")
     let newText2 = ""
 
     contenidoLibrosJSON.forEach(e => {
-        if (e.categoria === "Fantasia") {
-            matriz_Ortogonal.insertData(e.fila, e.columna, e.nombre_libro)
 
+        /*Mandamos nuestro objeto de libros a una lista simple para el
+        ordenamiento y asi mismo poder hacer la cola */
+        lista_Simple.agregarAlinicio(new Libros(e.isbn,
+            e.nombre_autor,
+            e.nombre_libro,
+            e.cantidad,
+            e.fila,
+            e.columna,
+            e.paginas,
+            e.categoria))
+
+        if (e.categoria === "Fantasia") {
             newText += `
-                    <div class="col-md-3 col-sm-6">
-                                <div class="box">
-                                    <div class="our-team">
-                                        <div class="pic">
-                                            <img src="./img/image1.jpg">
+                        <div class="col-md-3 col-sm-6">
+                                    <div class="box">
+                                        <div class="our-team">
+                                            <div class="pic">
+                                                <img src="./img/Libro${random(1, 70)}.jpg">
+                                                </div>
+                                            <h3 class="title">${e.nombre_libro}</h3>
+                                            <span class="post">${e.nombre_autor}</span>
+                                            <p>Cantidad: ${e.cantidad}</p>
                                         </div>
-                                        <h3 class="title">${e.nombre_libro}</h3>
-                                        <span class="post">${e.nombre_autor}</span>
-                                        <p>Cantidad: ${e.cantidad}</p>
                                     </div>
                                 </div>
-                            </div>
-                    `
+                        `
             newElement.innerHTML = newText
+
         }
         else if (e.categoria === "Thriller") {
             matriz_Dispersa.insertar(new NodoInterno(
@@ -228,27 +246,152 @@ function cargarLibros() {
                 e.columna,
                 e.nombre_libro
             ))
-
             newText2 += `
                     <div class="col-md-3 col-sm-6">
-                                <div class="box">
-                                    <div class="our-team">
-                                        <div class="pic">
-                                            <img src="./img/image1.jpg">
-                                        </div>
-                                        <h3 class="title">${e.nombre_libro}</h3>
-                                        <span class="post">${e.nombre_autor}</span>
-                                        <p>Cantidad: ${e.cantidad}</p>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="box">
+                    <div class="our-team">
+                    <div class="pic">
+                    <img src="./img/Libro${random(1, 70)}.jpg">
+                    </div>
+                    <h3 class="title">${e.nombre_libro}</h3>
+                    <span class="post">${e.nombre_autor}</span>
+                    <p>Cantidad: ${e.cantidad}</p>
+                    </div>
+                    </div>
+                    </div>
                     `
             newElement2.innerHTML = newText2
-        }
-        console.log(e.nombre_autor)
-    })
 
-    matriz_Ortogonal.drawMatrix()
+        }
+
+        lista_Simple.ordenamientoBurbuja()
+        contador += 1
+    })
+    lista_Simple.recorrerLista()
     matriz_Dispersa.graficarDot()
+    matrizO()
+
+
+    function matrizO(){
+        let lista = lista_Simple.buscarDato_Categoria("Fantasia")
+        if (lista != null){
+            matriz_Ortogonal.autofilling(25,25," ")
+            matriz_Ortogonal.updateData(lista.fila, lista.columna, lista.nombreLibro)
+            matriz_Ortogonal.drawMatrix()
+        }
+    }
 
 }
+
+function apilarLibro() {
+    let inputOut = document.querySelector("#input-libro").value
+    let libroObtenido = lista_Simple.buscarDato(inputOut)
+
+
+    let nombreL, cantidadL
+    nombreL = libroObtenido.nombreLibro
+    cantidadL = libroObtenido.cantidad
+
+    console.log(nombreL, cantidadL)
+    for (let i = 1; i <= cantidadL; i++) {
+        Pila_1.apilar(i)
+        //console.log(i)
+    }
+    Pila_1.graficarDot(nombreL)
+
+
+    document.querySelector("#input-libro").value = ""
+    console.log(inputOut)
+
+}
+
+let listaDoblemente = new listaDoble()
+let Colaa = new Cola()
+let listadeListas = new Lista_Listas()
+
+function comprarLibro() {
+    let inputNombre = document.querySelector("#comprar-nombre").value
+    let inputNombreLibro = document.querySelector("#comprar-nombre-libro").value
+    let inputCantidad = parseInt(document.querySelector("#comprar-cantidad").value)
+
+    // Para el top de libros mas vendidos
+    //listaDoblemente.agregarAlfinal(new UsuariosCon_Libros(inputNombreLibro, inputCantidad))
+    //listaDoblemente.recorrerLista()
+
+    function Agregar_Doble(){
+        
+        if (listaDoblemente.buscarDato(inputNombre) !== null) {
+            let buscarDato = listaDoblemente.buscarDato(inputNombre)
+            buscarDato.cantidad_Libros = buscarDato.cantidad_Libros + inputCantidad
+            console.log(buscarDato)
+    
+            listaDoblemente.ordenamientoBurbuja()
+            listaDoblemente.graficarDobleDot()
+        }
+        else {
+            listaDoblemente.agregarAlinicio(new UsuariosCon_Libros(inputNombre, inputNombreLibro,  inputCantidad))
+            listaDoblemente.ordenamientoBurbuja()
+            listaDoblemente.recorrerLista()
+            listaDoblemente.graficarDobleDot()
+        }
+        listaDoblemente.slide()
+
+    }
+
+
+    // Para buscar datos de los libros y modificar su cantidad
+
+    let modificar = lista_Simple.buscarDato(inputNombreLibro)
+    if (modificar !== null) {
+        if (inputCantidad > modificar.cantidad) {
+            swal({
+                text: `Se encuentran ${modificar.cantidad} libros en stock.`,
+                icon: "warning",
+                button: "Ok",
+              });
+            if (modificar.cantidad === 0){
+                swal({
+                    text: `No contamos con libros en Stock. 
+                    ¿Deseas agregar los libros a la cola?`,
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                  })
+                  .then((willDelete) => {
+                    if (willDelete) {
+                      swal("Tus libros se agregaron a la cola correctamente", {
+                        icon: "success",
+                      });
+                      Colaa.arribo(new usuarioEn_Cola(inputNombre, inputNombreLibro, inputCantidad))
+                      Colaa.graficarDot()
+                    } else {
+                      swal("Lamentamos no tener libros en este momento.");
+                    }
+                  });
+            }
+            /*
+            alert(`Hay ${modificar.cantidad} libros en stock..`)
+            if (modificar.cantidad === 0){
+                alert(`¿Deseas agregar los libros a la cola?`)
+            }*/
+        }
+        else {
+            modificar.cantidad = modificar.cantidad - inputCantidad
+            console.log(modificar)
+            Agregar_Doble()
+            listadeListas.add(inputNombre, inputNombreLibro)
+            listadeListas.graficar()
+        }
+    }
+
+
+
+
+
+    console.log(inputNombre, inputNombreLibro, inputCantidad)
+    document.querySelector("#comprar-nombre").value = ""
+    document.querySelector("#comprar-nombre-libro").value = ""
+    document.querySelector("#comprar-cantidad").value = ""
+}
+
+export { contenidoUsuariosJSON, contenidoLibrosJSON }

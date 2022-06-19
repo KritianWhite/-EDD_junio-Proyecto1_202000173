@@ -33,33 +33,60 @@
     .selector-for-some-widget {
         box-sizing: content-box;
     }
-
-    #matriz-dispersa {
-        background-color: aquamarine;
-        width: 1500px;
-        height: 1000px;
+    #lista-listas {
+        margin: 0 auto;
+        background: silver;
+        width: 90%;
+        text-align: center;
     }
-
-    #matriz-ortogonal {
-        background-color: fuchsia;
-        width: 1500px;
-        height: 1000px;
+    #lista-doblemente{
+        background: silver;
+        margin: 0 auto;
+        width: 90%;
+        text-align: center;
     }
-
-    #arbolito {
-        background-color: fuchsia;
-        width: 1500px;
-        height: 1000px;
+    #cola-espera{
+        background: silver;
+        margin: 0 auto;
+        width: 90%;
+        text-align: center;
     }
 </style>
 
 <body style="background-color: white;">
     <!--área del home-->
-    <div id="home" style="display: none;">
+    <div id="home" style="display: block;">
         <nav class="navbar navbar-dark bg-primary">
             <p class="navbar-brand">Home</p>
             <button type="button" class="btn btn-success" id="iniciar-sesion">Iniciar sesión</button>
         </nav>
+
+        <div class="slideshow-container">
+
+            <!-- Full-width images with number and caption text -->
+            <div class="mySlides fade">
+                <div class="numbertext">1 / 2</div>
+                <img src="./img/image1.png" style="width:100%">
+                <div class="text">
+                    Usuario: ------
+                    <br>
+                    Libros obtenidos: 0
+                </div>
+            </div>
+    
+            <div class="mySlides fade">
+                <div class="numbertext">2 / 2</div>
+                <img src="./img/image2.png" style="width:100%">
+                <div class="text">
+                    Usuario: ------
+                    <br>
+                    Libros obtenidos: 0
+                </div>
+            </div>
+
+        </div>
+
+        <div id="lista-doblemente"></div>
     </div>
 
     <!--área para el login-->
@@ -88,7 +115,7 @@
 
                             <!-- Submit button -->
                             <input type="button" class="btn btn-primary btn-lg btn-block" value="Iniciar sesión"
-                                id="boton" onclick="login()">
+                                id="boton">
                         </form>
                     </div>
                 </div>
@@ -97,7 +124,7 @@
     </div>
 
     <!--área para administrador-->
-    <div id="administrador" style="display: block;">
+    <div id="administrador" style="display: none;">
         <section class="pricing-table">
             <div class="container">
                 <div class="block-heading">
@@ -182,7 +209,7 @@
 
     <div id="navbar-usuarios" style="display: none;">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand">Usuarios</a>
+            <a class="navbar-brand" id="usuarios-">Usuarios</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -240,6 +267,9 @@
 
     <div id="mostrar-librera" style="display: none;">
 
+        <h1 class="titulo-TDA">Librera de libros de la categoria Fantasia</h1>
+        <div id="matriz-ortogonal"></div>
+
         <h1 class="titulo-TDA">Libros de Fantasia</h1>
         <div class="container">
             <div class="row" id="libros-Fantasia">
@@ -258,7 +288,8 @@
             </div>
         </div>
 
-        <div id="matriz-ortogonal"></div>
+        <h1 class="titulo-TDA">Librera de libros de la categoria Thriller</h1>
+        <div id="matriz-dispersa"></div>
 
         <h1 class="titulo-TDA">Libros de Fantasia</h1>
         <div class="container">
@@ -278,13 +309,25 @@
             </div>
         </div>
 
-        <div id="matriz-dispersa"></div>
+        <h1 class="titulo-TDA">Pila de libros</h1>
+        <div class="container" id="opciones-libro">
+            <div class="form-group row">
+                <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Nombre del libro</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control form-control-lg" id="input-libro"
+                        placeholder="Ingrese el nombre">
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary btn-lg btn-block" id="apilar-libro">Ver pila del libro</button>
+        </div>
 
+        <div id="area-pila"></div>
 
     </div>
 
-    <div id="mostrar-arbol" style="display: block;">
+    <div id="mostrar-arbol" style="display: none;">
 
+        <h1 class="titulo-TDA">Biografía de autores</h1>
         <div class="team-area">
             <div class="container">
                 <div class="row" id="autores">
@@ -310,11 +353,38 @@
                 </div>
             </div>
         </div>
-
-    </div>
-    
-    <div id="mostrar-comprar" style="display: none;">
+        <h1 class="titulo-TDA">Arbol autores</h1>
         <div id="arbolito"></div>
+    </div>
+
+    <div id="mostrar-comprar" style="display: none;">
+
+        <h1 class="titulo-TDA">Compra de libros</h1>
+        <div class="container">
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="validationDefault01">Nombre usuario:</label>
+                    <input type="text" class="form-control" id="comprar-nombre" placeholder="Ingrese su nombre de usuario">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="validationDefault02">Nombre del libro:</label>
+                    <input type="text" class="form-control" id="comprar-nombre-libro"
+                        placeholder="Ingrese el nombre del libro">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="validationDefault03">Cantidad:</label>
+                    <input type="text" class="form-control" id="comprar-cantidad"
+                        placeholder="Ingrese la cantidad de libros">
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary btn-lg btn-block" id="comprar-libro">ADQUIRIR</button>
+        </div>
+
+        <h1 class="titulo-TDA">Lista de usuarios con libros comprados</h1>
+        <div id="lista-listas"></div>
+
+        <h1 class="titulo-TDA">Cola de libros en espera</h1>
+        <div id="cola-espera"></div>
 
     </div>
 
@@ -329,15 +399,21 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 
+    <!-- importacion del script de las alertas personalizadas -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <!--importaciones de graphviz-->
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
     <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.min.js"></script>
 
     <!-- importaciones de archivos de la carpeta de JavaScript -->
-    <script src="./JavaScript/main.js"></script>
-    <script type="module" src="./JavaScript/Usuarios lista circular simple.js"></script>
+    <script type="module" src="./JavaScript/main.js"></script>
     <script type="module" src="./JavaScript/cargarJSON.js"></script>
+
+    <!-- importación del js del slidder-->
+    <script src="./JavaScript/Slidder.js"></script>
+
 </body>
 
 </html>

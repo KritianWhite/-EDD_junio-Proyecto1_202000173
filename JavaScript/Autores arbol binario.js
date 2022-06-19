@@ -119,7 +119,7 @@ export class ArbolABB{
         cadena += "node [shape = record, color=black , style=filled, fillcolor=gray93];\n";
         cadena += this.__graficadora(raiz);
         cadena += "} \n";
-        d3.select("#arbolito").graphviz().width(1350).height(500).renderDot(cadena);
+        d3.select("#arbolito").graphviz().width(1300).height(900).renderDot(cadena);
       }
     
       __graficadora(root) {

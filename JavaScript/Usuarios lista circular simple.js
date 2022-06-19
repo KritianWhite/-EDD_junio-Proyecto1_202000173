@@ -157,7 +157,7 @@ export class listaCircularSimple {
         }
         let auxiliar = this.primero
         while (auxiliar != null) {
-            if (auxiliar.dato.nombreSong === dato_) {
+            if (auxiliar.dato.nombreUsuario === dato_) {
                 return ((auxiliar.dato) + ", dato encontrado.")
             }
             auxiliar = auxiliar.siguiente
