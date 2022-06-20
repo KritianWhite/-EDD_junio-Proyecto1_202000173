@@ -1,14 +1,17 @@
 import { Usuario, listaCircularSimple } from './Usuarios lista circular simple.js'
-import { Autores, ArbolABB } from "./Autores arbol binario.js";
+import { Autores, ArbolABB, listaSimple_A } from "./Autores arbol binario.js";
 import { Libros, NodoInterno, MatrizDispersa, MatrizOrtogonal } from "./Libros matrices dispersa.js";
 import { listaSimple } from "./Lista simple.js";
 import { Pila } from "./Pila.js";
 import { UsuariosCon_Libros, usuarioEn_Cola, listaDoble, Cola } from "./Lista doblemente enlazada.js";
 import { Lista_Listas } from "./Lista de listas.js";
+import { Libros_B, Libros_Q, listaSimple_B, listaSimple_Q } from "./Ordenamientos.js";
+
 
 
 document.getElementById("apilar-libro").onclick = apilarLibro
 document.getElementById("comprar-libro").onclick = comprarLibro
+document.getElementById("btn-buscar-autor").onclick = buscarAutor
 
 // USUARIOS
 var listaCircular_Simple = new listaCircularSimple()
@@ -89,6 +92,7 @@ function cargarUsuarios() {
 
 // AUTORES
 var arbolito = new ArbolABB()
+var lista_SimpleA = new listaSimple_A()
 var contenidoAutoresJSON = []
 
 window.addEventListener("load", () => {
@@ -123,14 +127,14 @@ function cargarAutores() {
     let newText = ""
 
     contenidoAutoresJSON.forEach(e => {
-        let listAutores = new Autores(
+        lista_SimpleA.agregarAlinicio(new Autores(
             e.dpi,
             e.nombre_autor,
             e.correo,
             e.telefono,
             e.direccion,
-            e.about
-        )
+            e.biografia
+        ))
 
         newText += `
             <div class="col-md-4 col-sm-6 col-xs-12">
@@ -148,7 +152,7 @@ function cargarAutores() {
                             </div>
                             <div class="img-text">
                                 <h4>${e.nombre_autor}</h4>
-                                <h5>${e.about}</h5>
+                                <h5>${e.biografia}</h5>
                             </div>
                         </div>
                     </div>
@@ -156,11 +160,7 @@ function cargarAutores() {
         newElement.innerHTML = newText
 
         arbolito.agregar(e.nombre_autor)
-        console.log(listAutores)
     })
-    arbolito.postOrden(arbolito.raiz)
-    arbolito.postOrden(arbolito.raiz)
-    arbolito.inOrden(arbolito.raiz)
     arbolito.graficar(arbolito.raiz)
 }
 
@@ -170,6 +170,8 @@ var matriz_Ortogonal = new MatrizOrtogonal()
 var matriz_Dispersa = new MatrizDispersa()
 var Pila_1 = new Pila()
 var lista_Simple = new listaSimple()
+var lista_SimpleB = new listaSimple_B()
+var lista_SimpleQ = new listaSimple_Q()
 var contenidoLibrosJSON = []
 
 window.addEventListener("load", () => {
@@ -209,6 +211,7 @@ function cargarLibros() {
     let newElement2 = document.getElementById("libros-Thriller")
     let newText2 = ""
 
+    matriz_Ortogonal.autofilling(25,25,"")
     contenidoLibrosJSON.forEach(e => {
 
         /*Mandamos nuestro objeto de libros a una lista simple para el
@@ -223,7 +226,19 @@ function cargarLibros() {
             e.categoria))
 
         if (e.categoria === "Fantasia") {
-            newText += `
+            matriz_Ortogonal.updateData(e.fila, e.columna, e.nombre_libro)
+            lista_SimpleB.agregarAlinicio(new Libros_B(e.isbn,
+                e.nombre_autor,
+                e.nombre_libro,
+                e.cantidad,
+                e.fila,
+                e.columna,
+                e.paginas,
+                e.categoria
+            ))
+
+
+            /*newText += `
                         <div class="col-md-3 col-sm-6">
                                     <div class="box">
                                         <div class="our-team">
@@ -237,49 +252,52 @@ function cargarLibros() {
                                     </div>
                                 </div>
                         `
-            newElement.innerHTML = newText
-
+            newElement.innerHTML = newText*/
+            
         }
         else if (e.categoria === "Thriller") {
             matriz_Dispersa.insertar(new NodoInterno(
                 e.fila,
                 e.columna,
                 e.nombre_libro
+                ))
+                
+                lista_SimpleQ.agregarAlinicio(new Libros_Q(e.isbn,
+                    e.nombre_autor,
+                    e.nombre_libro,
+                    e.cantidad,
+                    e.fila,
+                    e.columna,
+                    e.paginas,
+                e.categoria
             ))
-            newText2 += `
-                    <div class="col-md-3 col-sm-6">
-                    <div class="box">
-                    <div class="our-team">
-                    <div class="pic">
-                    <img src="./img/Libro${random(1, 70)}.jpg">
-                    </div>
-                    <h3 class="title">${e.nombre_libro}</h3>
-                    <span class="post">${e.nombre_autor}</span>
-                    <p>Cantidad: ${e.cantidad}</p>
-                    </div>
+
+            /*newText2 += `
+            <div class="col-md-3 col-sm-6">
+            <div class="box">
+            <div class="our-team">
+            <div class="pic">
+            <img src="./img/Libro${random(1, 70)}.jpg">
+            </div>
+            <h3 class="title">${e.nombre_libro}</h3>
+            <span class="post">${e.nombre_autor}</span>
+            <p>Cantidad: ${e.cantidad}</p>
+            </div>
                     </div>
                     </div>
                     `
-            newElement2.innerHTML = newText2
+                    newElement2.innerHTML = newText2*/
 
         }
-
-        lista_Simple.ordenamientoBurbuja()
         contador += 1
     })
     lista_Simple.recorrerLista()
+    
+    lista_SimpleB.recorrerLista()
+    lista_SimpleQ.recorrerLista()
+    
+    matriz_Ortogonal.drawMatrix()
     matriz_Dispersa.graficarDot()
-    matrizO()
-
-
-    function matrizO(){
-        let lista = lista_Simple.buscarDato_Categoria("Fantasia")
-        if (lista != null){
-            matriz_Ortogonal.autofilling(25,25," ")
-            matriz_Ortogonal.updateData(lista.fila, lista.columna, lista.nombreLibro)
-            matriz_Ortogonal.drawMatrix()
-        }
-    }
 
 }
 
@@ -293,7 +311,7 @@ function apilarLibro() {
     cantidadL = libroObtenido.cantidad
 
     console.log(nombreL, cantidadL)
-    for (let i = 1; i <= cantidadL; i++) {
+    for (let i = 0; i <= cantidadL; i++) {
         Pila_1.apilar(i)
         //console.log(i)
     }
@@ -392,6 +410,43 @@ function comprarLibro() {
     document.querySelector("#comprar-nombre").value = ""
     document.querySelector("#comprar-nombre-libro").value = ""
     document.querySelector("#comprar-cantidad").value = ""
+}
+
+function buscarAutor(){
+    let inputBuscar_A = document.querySelector("#input-buscar-autor").value
+    let buscar = lista_SimpleA.buscarDato(inputBuscar_A)
+
+    let nuevoElemento = document.getElementById("autores-busqueda")
+    let elemento = ""
+    if (buscar !== null){
+        elemento += `
+        <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="single-team">
+                            <div class="img-area">
+                                <img src="./img/Autor${random(1, 50)}.jpg" class="img-responsive" alt="">
+                                <div class="social">
+                                    <ul class="list-inline">
+                                        <li><a><i class="fa fa-facebook"></i></a></li>
+                                        <li><a><i class="fa fa-twitter"></i></a></li>
+                                        <li><a><i class="fa fa-pinterest"></i></a></li>
+                                        <li><a><i class="fa fa-linkedin"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="img-text">
+                                <h4>${buscar.nombreAutor}</h4>
+                                <h5>Telefono: ${buscar.telefono}</h5>
+                                <h5>Direccion: ${buscar.direccion}</h5>
+                                <p>${buscar.biografia}</p>
+                            </div>
+                        </div>
+                    </div>
+        `
+        nuevoElemento.innerHTML = elemento
+    }
+    else{
+        alert("Dato no encontrado")
+    }
 }
 
 export { contenidoUsuariosJSON, contenidoLibrosJSON }

@@ -10,6 +10,14 @@
 
 
 /* Estilos del home */
+#lista-doblemente{
+  background: silver;
+  margin: 0 auto;
+  width: 90%;
+  text-align: center;
+}
+
+
 /*slider*/
 
 * {
@@ -300,14 +308,24 @@
 
 /* Estilos para mostrar los libros en la librera */
 #matriz-dispersa {
-  background-color: fuchsia;
+  background-image: url("../img/Librera\ muestra.jpg");
   margin: 0 auto;
   width: 90%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  padding-bottom: 65px;
+  align-items: center;
 }
 #matriz-ortogonal {
-  background-color: fuchsia;
+  background-image: url("../img/Librera\ muestra.jpg");
   margin: 0 auto;
   width: 90%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  padding-bottom: 65px;
+  align-items: center;;
 }
 
 #libros-Fantasia{
@@ -454,3 +472,17 @@ section{
 
 
 /* Estilos para la pestaña de comprar */
+
+#lista-listas {
+  margin: 0 auto;
+  background: silver;
+  width: 90%;
+  text-align: center;
+}
+
+#cola-espera{
+  background: silver;
+  margin: 0 auto;
+  width: 90%;
+  text-align: center;
+}

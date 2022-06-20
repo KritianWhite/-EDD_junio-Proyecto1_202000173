@@ -377,8 +377,8 @@ export class Cola {
 
 
         cadena += "}";
-        console.log(cadena);
-        d3.select("#cola-espera").graphviz().width(1000).height(300).renderDot(cadena);
+        //console.log(cadena);
+        d3.select("#cola-espera").graphviz().width(1000).height(200).renderDot(cadena);
     }
 
 }

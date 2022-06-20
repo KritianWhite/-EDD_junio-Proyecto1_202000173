@@ -1,5 +1,3 @@
-import { listaSimple } from "./Lista simple.js";
-
 export class Libros {
     constructor(isbn, nombreAutor, nombreLibro, cantidad, fila, columna, paginas, categoria) {
         this._isbn = isbn
@@ -326,7 +324,7 @@ export class MatrizDispersa {
     graficarDot() {
         var aux, aux2, cont, grafo, group, rank, x_fila, y_columna;
 
-        grafo = "digraph T{ \nnode[shape=box fontname=\"Arial\" fillcolor=\"white\" style=filled ]";
+        grafo = "digraph T{graph[bgcolor = transparent] \nnode[shape=box fontname=\"Arial\" fillcolor=\"white\" style=filled ]";
         grafo += "\nroot[label = \"capa: " + this.capa + "\", group=1]\n";
         grafo += "label = \"Matriz Dispersa\" \nfontname=\"Arial Black\" \nfontsize=\"15pt\" \n\n\n";
 
@@ -465,8 +463,8 @@ export class MatrizDispersa {
         grafo += "}";
 
         d3.select("#matriz-dispersa").graphviz()
-            .width(1500)
-            .height(1500)
+            .width(1400)
+            .height(1400)
             .renderDot(grafo)
 
     }
@@ -767,12 +765,17 @@ export class MatrizOrtogonal {
             cadena = "";
             rank = "{rank=same;";
             sub_cadena = "";
-            cadena = cadena + "digraph G { \n" + "\nnode[style=\"filled\", shape=\"box\"]\n";
+            cadena = cadena + "digraph G { graph[bgcolor = transparent] \n" + "\nnode[style=\"filled\", shape=\"box\"]\n";
             tmp = this.head;
             while (tmp !== null) {
                 aux = tmp;
                 while (aux !== null) {
-                    cadena = cadena + `node${aux.fila.toString()}_${aux.columna.toString()}` + `[label="${aux.caracter}"];`;
+                    if (aux.caracter === ""){
+                        cadena = cadena + `node${aux.fila.toString()}_${aux.columna.toString()}` + `[label="${aux.caracter}"];`;
+                    }
+                    else{
+                        cadena = cadena + `node${aux.fila.toString()}_${aux.columna.toString()}` + `[fillcolor="#5A6AF9" label="${aux.caracter}"];`;
+                    }
 
                     if (aux.siguiente !== null) {
                         cadena = cadena + `node${aux.fila.toString()}_${aux.columna.toString()} -> node${aux.fila.toString()}_${(aux.columna + 1).toString()};`;
@@ -798,8 +801,8 @@ export class MatrizOrtogonal {
                 tmp = tmp.siguiente;
             }
             cadena = cadena + "}";
-            console.log(cadena);
-            d3.select("#matriz-ortogonal").graphviz().width(1350).height(500).renderDot(cadena);
+            //console.log(cadena);
+            d3.select("#matriz-ortogonal").graphviz().width(1400).height(1400).renderDot(cadena);
 
         } else {
             console.log("Matriz vacia");

@@ -33,24 +33,6 @@
     .selector-for-some-widget {
         box-sizing: content-box;
     }
-    #lista-listas {
-        margin: 0 auto;
-        background: silver;
-        width: 90%;
-        text-align: center;
-    }
-    #lista-doblemente{
-        background: silver;
-        margin: 0 auto;
-        width: 90%;
-        text-align: center;
-    }
-    #cola-espera{
-        background: silver;
-        margin: 0 auto;
-        width: 90%;
-        text-align: center;
-    }
 </style>
 
 <body style="background-color: white;">
@@ -231,6 +213,7 @@
                 </ul>
             </div>
         </nav>
+        <button id="cerrar-sesion" style="float: right; width: 150px; height: 45px;" type="button" class="btn btn-danger">Salir</button>
     </div>
 
     <div id="mostrar-usuarios" style="display: none;">
@@ -240,10 +223,10 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="our-team">
                         <div class="pic">
-                            <img src="./img/image1.jpg">
+                            <img src="./img/profile.jpg">
                         </div>
-                        <h3 class="title">Williamson</h3>
-                        <span class="post">Web Developer</span>
+                        <h3 class="title">Nombre</h3>
+                        <span class="post">Usuario</span>
                         <ul class="social">
                             <li><a class="fa fa-facebook"></a></li>
                             <li><a class="fa fa-twitter"></a></li>
@@ -277,11 +260,10 @@
                     <div class="box">
                         <div class="our-team">
                             <div class="pic">
-                                <img src="./img/image1.jpg">
+                                <img src="./img/libro.png">
                             </div>
                             <h3 class="title">Nombre Libro</h3>
                             <span class="post">Autor libro</span>
-                            <p>Cantidad</p>
                         </div>
                     </div>
                 </div>
@@ -291,14 +273,14 @@
         <h1 class="titulo-TDA">Librera de libros de la categoria Thriller</h1>
         <div id="matriz-dispersa"></div>
 
-        <h1 class="titulo-TDA">Libros de Fantasia</h1>
+        <h1 class="titulo-TDA">Libros de Thriller</h1>
         <div class="container">
             <div class="row" id="libros-Thriller">
                 <div class="col-md-3 col-sm-6">
                     <div class="box">
                         <div class="our-team">
                             <div class="pic">
-                                <img src="./img/image1.jpg">
+                                <img src="./img/libro.png">
                             </div>
                             <h3 class="title">Nombre Libro</h3>
                             <span class="post">Autor libro</span>
@@ -334,7 +316,7 @@
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="single-team">
                             <div class="img-area">
-                                <img src="https://i.postimg.cc/wMMhrMDm/2.jpg" class="img-responsive" alt="">
+                                <img src="./img/Profile.jpg" class="img-responsive" alt="">
                                 <div class="social">
                                     <ul class="list-inline">
                                         <li><a><i class="fa fa-facebook"></i></a></li>
@@ -345,16 +327,57 @@
                                 </div>
                             </div>
                             <div class="img-text">
-                                <h4>John Doe</h4>
-                                <h5>Web Designer</h5>
+                                <h4>Nombre autor</h4>
+                                <h5>About</h5>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <h1 class="titulo-TDA">Arbol autores</h1>
         <div id="arbolito"></div>
+        
+        <h1 class="titulo-TDA">Busqueda de autores</h1>
+        <div class="container" id="buscar-autor">
+            <div class="form-group row">
+                <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Nombre del autor:</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control form-control-lg" id="input-buscar-autor"
+                        placeholder="Ingrese el nombre">
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary btn-lg btn-block" id="btn-buscar-autor">Buscar autor</button>
+        </div>
+        <div class="team-area">
+            <div class="container">
+                <div class="row" id="autores-busqueda">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="single-team">
+                            <div class="img-area">
+                                <img src="./img/Profile.jpg" class="img-responsive" alt="">
+                                <div class="social">
+                                    <ul class="list-inline">
+                                        <li><a><i class="fa fa-facebook"></i></a></li>
+                                        <li><a><i class="fa fa-twitter"></i></a></li>
+                                        <li><a><i class="fa fa-pinterest"></i></a></li>
+                                        <li><a><i class="fa fa-linkedin"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="img-text">
+                                <h4>Nombre Autor</h4>
+                                <h5>Telefono: </h5>
+                                <h5>Direccion: </h5>
+                                <p>about</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div id="mostrar-comprar" style="display: none;">

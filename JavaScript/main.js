@@ -9,9 +9,9 @@ window.addEventListener("load", () => {
         .addEventListener("click", login)
 })
 
+var user, pass
 function login() {
-    var user, pass, okey
-    okey = false
+    let okey = false
 
     document.getElementById("home").style.display = "none"
     document.getElementById("login").style.display = "block"
@@ -61,7 +61,7 @@ function login() {
                 okey = true
                 return
             }
-            else if(user === e.nombre_usuario && pass === e.contrasenia && e.rol === "Usuario"){
+            else if (user === e.nombre_usuario && pass === e.contrasenia && e.rol === "Usuario") {
                 document.getElementById("home").style.display = "none"
                 document.getElementById("login").style.display = "none"
                 document.getElementById("administrador").style.display = "none"
@@ -74,7 +74,7 @@ function login() {
                 return
             }
         })
-        if (!okey){
+        if (!okey) {
             alert("Contraseña y/o usuario incorrectos..!")
         }
     }
@@ -113,6 +113,11 @@ window.addEventListener("load", () => {
         .getElementById("regresar-login")
         .addEventListener("click", regresarLogin)
 })
+window.addEventListener("load", () =>{
+    document
+        .getElementById("cerrar-sesion")
+        .addEventListener("click", regresarLogin)
+})
 function regresarLogin() {
     document.getElementById("home").style.display = "none"
     document.getElementById("login").style.display = "block"
@@ -122,6 +127,9 @@ function regresarLogin() {
     document.getElementById("mostrar-librera").style.display = "none"
     document.getElementById("mostrar-arbol").style.display = "none"
     document.getElementById("mostrar-comprar").style.display = "none"
+
+    document.getElementById("user").value = ""
+    document.getElementById("password").value = ""
 }
 
 

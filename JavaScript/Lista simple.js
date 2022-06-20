@@ -24,6 +24,7 @@ export class listaSimple {
             auxiliar.siguiente = this.primero
             this.primero = auxiliar
         }
+        this.ordenamientoBurbuja()
     }
 
     agregarAlfinal(dato) {
@@ -34,6 +35,7 @@ export class listaSimple {
             this.ultimo = new Nodo(dato)
             auxiliar.siguiente = this.ultimo
         }
+        this.ordenamientoBurbuja()
     }
 
     eliminarAlinicio() {
@@ -187,7 +189,7 @@ export class listaSimple {
         }
 
         cadena += "}";
-        console.log(cadena);
+        //console.log(cadena);
         d3.select("#lienzo").graphviz().width(1350).height(500).renderDot(cadena);
 
     }
