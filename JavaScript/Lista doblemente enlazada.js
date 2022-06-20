@@ -365,7 +365,7 @@ export class Cola {
         cadena += "rankdir=RL \n";
 
         while (temporal !== null) {
-            cadena += "Node" + cont + "[label=\"Usuario" + temporal.dato.name+"\nLibro: "+temporal.dato.nombre_LibroC+ "\nCantidad: "+temporal.dato.cantidad_LibrosC + " libros\"];\n";
+            cadena += "Node" + cont + "[label=\"Usuario: " + temporal.dato.name+"\nLibro: "+temporal.dato.nombre_LibroC+ "\nCantidad: "+temporal.dato.cantidad_LibrosC + " libros\"];\n";
 
             if (temporal !== this.frente) {
                 cadena += "Node" + (cont) + " -> " + "Node" + (cont - 1) + ";\n";
